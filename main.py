@@ -85,7 +85,7 @@ if __name__ == '__main__':
         counter.update(tokenizer(line))
     vocab = Vocab(counter, min_freq=1)
 
-    text_pipeline = lambda x: [vocab[token] for token in tokenizer(x)]
+    text_pipeline = lambda x: [0 if token not in embeddings.index2word else embeddings.index2word.index(token) for token in tokenizer(x)]
     label_pipeline = lambda x: int(x)
 
     dataloader = DataLoader(train_iter, batch_size=8, shuffle=False, collate_fn=collate_batch)
